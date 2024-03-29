@@ -174,4 +174,9 @@ class CheckoutSolutionTest {
     public void testCheckoutWithABCDEFGHIJKLMNOPQRSTUVWXYZShouldReturn965() {
         assertThat(chk.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(965));
     }
+
+    @Test
+    public void testCheckoutWith2S1T5ZShouldReturn130() {
+        assertThat(chk.checkout("2S1T5Z"), equalTo(130));
+    }
 }

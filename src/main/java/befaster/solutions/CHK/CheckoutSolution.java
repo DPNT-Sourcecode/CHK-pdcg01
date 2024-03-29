@@ -130,7 +130,7 @@ public class CheckoutSolution {
             }
         }
         list.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
-        System.out.println(list);
+
         int specialGroupOfferItemCount = 0;
         for (Map.Entry<List<Character>, Integer> entry: specialGroupOfferMap.entrySet()) {
             for (int i=0; i<entry.getKey().size(); i++) {
@@ -138,6 +138,18 @@ public class CheckoutSolution {
                 if (itemCountMap.get(charToCheck) != null) {
                     specialGroupOfferItemCount += itemCountMap.get(charToCheck);
                 }
+            }
+        }
+
+        for (Map.Entry<Character, Integer> entry: list) {
+            if (itemCountMap.containsKey(entry.getKey()) && specialGroupOfferItemCount > 0) {
+                int amount = itemCountMap.get(entry.getKey());
+                if (specialGroupOfferItemCount >= amount) {
+                    itemCountMap.put(entry.getKey(), 0);
+                } else {
+                    itemCountMap.put(entry.getKey(), amount - specialGroupOfferItemCount);
+                }
+                specialGroupOfferItemCount = specialGroupOfferItemCount - amount;
             }
         }
 
