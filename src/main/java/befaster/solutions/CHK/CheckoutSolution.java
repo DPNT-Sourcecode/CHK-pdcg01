@@ -120,7 +120,7 @@ public class CheckoutSolution {
                             if (itemCountMap.get(entry.getValue().get(i)) <= numberOfSpecialOffers) {
                                 itemCountMap.put(entry.getValue().get(i), 0);
                             } else {
-                                itemCountMap.put(entry.getValue().get(i), itemCountMap.get(specialOfferItem) - numberOfSpecialOffers);
+                                itemCountMap.put(entry.getValue().get(i), itemCountMap.get(entry.getValue().get(i)) - numberOfSpecialOffers);
                             }
                         }
                         countOfSpecialItems = countOfSpecialItems % itemSpecialOffers.get(i);
@@ -131,6 +131,7 @@ public class CheckoutSolution {
         return itemCountMap;
     }
 }
+
 
 
 
