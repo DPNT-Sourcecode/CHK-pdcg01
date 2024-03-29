@@ -45,7 +45,7 @@ public class CheckoutSolution {
         specialOfferPriceMap.put('A', new ArrayList<>(List.of(200, 130)));
         specialOfferPriceMap.put('B', new ArrayList<>(List.of(45)));
         specialOfferPriceMap.put('H', new ArrayList<>(List.of(80, 45)));
-        specialOfferPriceMap.put('K', new ArrayList<>(List.of(150)));
+        specialOfferPriceMap.put('K', new ArrayList<>(List.of(120)));
         specialOfferPriceMap.put('P', new ArrayList<>(List.of(200)));
         specialOfferPriceMap.put('Q', new ArrayList<>(List.of(80)));
         specialOfferPriceMap.put('V', new ArrayList<>(List.of(130, 90)));
@@ -220,6 +220,7 @@ public class CheckoutSolution {
         return itemCountMap;
     }
 }
+
 
 
 
