@@ -33,6 +33,9 @@ public class CheckoutSolution {
             }
 
             if (Character.isAlphabetic(item)) {
+                // We check if the item exists
+                if (priceMap.get(item) == null) return -1;
+
                 // We check and see how many items of that type the user purchased
                 int numberOfItems;
                 if (currentNumber == 0)
@@ -62,6 +65,7 @@ public class CheckoutSolution {
         return checkoutSum;
     }
 }
+
 
 
 
