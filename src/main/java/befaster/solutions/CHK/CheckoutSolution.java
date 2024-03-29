@@ -160,7 +160,7 @@ public class CheckoutSolution {
         }
         System.out.println(specialGroupOfferItemCount);
         System.out.println(itemCountMap);
-        checkoutSum += (specialGroupOfferItemCount - appliedDiscounts) / groupDiscountsMinPurchase.get(0) * priceMap.get('d');
+        checkoutSum += (specialGroupOfferItemCount - appliedDiscounts) / groupDiscountsMinPurchase.get(0) * specialOfferPriceMap.get('d').get(0);
 
         for (Map.Entry<Character, Integer> entry: itemCountMap.entrySet()) {
             char item = entry.getKey();
@@ -221,5 +221,6 @@ public class CheckoutSolution {
         return itemCountMap;
     }
 }
+
 
 
