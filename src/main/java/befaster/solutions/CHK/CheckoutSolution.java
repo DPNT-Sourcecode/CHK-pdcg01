@@ -2,10 +2,7 @@ package befaster.solutions.CHK;
 
 import befaster.runner.SolutionNotImplementedException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CheckoutSolution {
 
@@ -13,6 +10,7 @@ public class CheckoutSolution {
     private static final Map<Character, List<Integer>> specialOfferCountMap = new HashMap<>();
     private static final Map<Character, List<Integer>> specialOfferPriceMap = new HashMap<>();
     private static final Map<Character, List<Character>> specialOfferCharacterMap = new HashMap<>();
+    private static final Map<List<Character>, Integer> specialGroupOfferMap = new HashMap<>();
 
     static {
         // This is where we put all the prices in the map
@@ -26,7 +24,7 @@ public class CheckoutSolution {
         priceMap.put('H', 10);
         priceMap.put('I', 35);
         priceMap.put('J', 60);
-        priceMap.put('K', 80);
+        priceMap.put('K', 70);
         priceMap.put('L', 90);
         priceMap.put('M', 15);
         priceMap.put('N', 40);
@@ -34,14 +32,14 @@ public class CheckoutSolution {
         priceMap.put('P', 50);
         priceMap.put('Q', 30);
         priceMap.put('R', 50);
-        priceMap.put('S', 30);
+        priceMap.put('S', 20);
         priceMap.put('T', 20);
         priceMap.put('U', 40);
         priceMap.put('V', 50);
         priceMap.put('W', 20);
-        priceMap.put('X', 90);
-        priceMap.put('Y', 10);
-        priceMap.put('Z', 50);
+        priceMap.put('X', 17);
+        priceMap.put('Y', 20);
+        priceMap.put('Z', 21);
 
         // This is where we put the special promotions in two separate maps
         specialOfferPriceMap.put('A', new ArrayList<>(List.of(200, 130)));
@@ -70,6 +68,8 @@ public class CheckoutSolution {
         specialOfferCountMap.put('R', new ArrayList<>(List.of(3)));
         specialOfferCountMap.put('U', new ArrayList<>(List.of(3)));
         specialOfferCountMap.put('V', new ArrayList<>(List.of(3, 2)));
+
+        specialGroupOfferMap.put(new ArrayList<>(List.of('S', 'T', 'X', 'Y', 'Z')), 3);
     }
     public Integer checkout(String skus) {
         // Firstly, we check if the string is empty so that means the checkout basket is empty
@@ -116,6 +116,22 @@ public class CheckoutSolution {
 
         // We should first check for free items and remove them
         itemCountMap = deductFreeItems(itemCountMap);
+
+        // Apply group discounts
+        // Firstly, I will create a map which has all the group discount items in descending order
+        LinkedHashMap<Character, Integer> sortedGroupOfferMap = new LinkedHashMap<>();
+        for (Map.Entry<List<Character>, Integer> entry: specialGroupOfferMap.entrySet()) {
+
+        }
+        int specialGroupOfferItemCount = 0;
+        for (Map.Entry<List<Character>, Integer> entry: specialGroupOfferMap.entrySet()) {
+            for (int i=0; i<entry.getKey().size(); i++) {
+                char charToCheck = entry.getKey().get(i);
+                if (itemCountMap.get(charToCheck) != null) {
+                    specialGroupOfferItemCount += itemCountMap.get(charToCheck);
+                }
+            }
+        }
 
         for (Map.Entry<Character, Integer> entry: itemCountMap.entrySet()) {
             char item = entry.getKey();
@@ -175,4 +191,9 @@ public class CheckoutSolution {
         }
         return itemCountMap;
     }
+
+    private Map<Character, Integer> applyGroupOfferDiscounts(Map<Character, Integer> itemCountMap) {
+
+    }
 }
+
