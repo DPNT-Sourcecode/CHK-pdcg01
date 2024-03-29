@@ -21,16 +21,19 @@ public class CheckoutSolution {
         priceMap.put('C', 20);
         priceMap.put('D', 15);
         priceMap.put('E', 40);
+        priceMap.put('F', 10);
 
         // This is where we put the special promotions in two separate maps
         specialOfferPriceMap.put('A', new ArrayList<>(List.of(200, 130)));
         specialOfferPriceMap.put('B', new ArrayList<>(List.of(45)));
 
         specialOfferCharacterMap.put('E', new ArrayList<>(List.of('B')));
+        specialOfferCharacterMap.put('F', new ArrayList<>(List.of('F')));
 
         specialOfferCountMap.put('A', new ArrayList<>(List.of(5, 3)));
         specialOfferCountMap.put('B', new ArrayList<>(List.of(2)));
         specialOfferCountMap.put('E', new ArrayList<>(List.of(2)));
+        specialOfferCountMap.put('F', new ArrayList<>(List.of(2)));
     }
     public Integer checkout(String skus) {
         // Firstly, we check if the string is empty so that means the checkout basket is empty
