@@ -2,14 +2,16 @@ package befaster.solutions.CHK;
 
 import befaster.runner.SolutionNotImplementedException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CheckoutSolution {
 
     private static final Map<Character, Integer> priceMap = new HashMap<>();
-    private static final Map<Character, Integer> specialOfferCountMap = new HashMap<>();
-    private static final Map<Character, Integer> specialOfferPriceMap = new HashMap<>();
+    private static final Map<Character, List<Integer>> specialOfferCountMap = new HashMap<>();
+    private static final Map<Character, List<Integer>> specialOfferPriceMap = new HashMap<>();
 
     static {
         // This is where we put all the prices in the map
@@ -17,13 +19,14 @@ public class CheckoutSolution {
         priceMap.put('B', 30);
         priceMap.put('C', 20);
         priceMap.put('D', 15);
+        priceMap.put('E', 40);
 
         // This is where we put the special promotions in two separate maps
-        specialOfferPriceMap.put('A', 130);
-        specialOfferPriceMap.put('B', 45);
+        specialOfferPriceMap.put('A', new ArrayList<>(List.of(200, 130)));
+        specialOfferPriceMap.put('B', new ArrayList<>(List.of(45)));
 
-        specialOfferCountMap.put('A', 3);
-        specialOfferCountMap.put('B', 2);
+        specialOfferCountMap.put('A', new ArrayList<>(List.of(5, 3)));
+        specialOfferCountMap.put('B', new ArrayList<>(List.of(2)));
     }
     public Integer checkout(String skus) {
         // Firstly, we check if the string is empty so that means the checkout basket is empty
@@ -71,17 +74,27 @@ public class CheckoutSolution {
         for (Map.Entry<Character, Integer> entry: itemCountMap.entrySet()) {
             char item = entry.getKey();
             int count = entry.getValue();
-            int price = priceMap.get(item);
+            int normalPrice = priceMap.get(item);
 
             if (specialOfferPriceMap.containsKey(item)) {
-                int numberOfSpecialOffers = count / specialOfferCountMap.get(item);
-                int remainingItems = count % specialOfferCountMap.get(item);
-                checkoutSum += numberOfSpecialOffers * specialOfferPriceMap.get(item) + remainingItems * price;
+                List<Integer> itemSpecialOffers = specialOfferCountMap.get(item);
+                List<Integer> itemSpecialOffersPrices = specialOfferPriceMap.get(item);
+                for (int i=0; i<itemSpecialOffers.size(); i++) {
+                    if (itemSpecialOffers.get(i) >= count) {
+                        int numberOfSpecialOffers = count / itemSpecialOffers.get(i);
+                        checkoutSum += numberOfSpecialOffers * itemSpecialOffersPrices.get(i);
+                        count = count % itemSpecialOffers.get(i);
+                    }
+                }
+                if (count > 0) {
+                    checkoutSum += count * normalPrice;
+                }
             } else {
-                checkoutSum += price * count;
+                checkoutSum += normalPrice * count;
             }
         }
 
         return checkoutSum;
     }
 }
+
