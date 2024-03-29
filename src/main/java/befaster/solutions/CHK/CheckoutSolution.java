@@ -23,19 +23,25 @@ public class CheckoutSolution {
         // Firstly, we check if the string is empty so that means the checkout basket is empty
         if (skus.isEmpty()) return 0;
         int checkoutSum = 0;
+        int currentNumber = 0;
 
         for (int i=0; i<skus.length(); i++) {
             char item = skus.charAt(i);
-            int currentNumber = 0;
-            if (Character.isAlphabetic(item)) {
-                if (currentNumber == 0)
-                    currentNumber  = Integer.parseInt(String.valueOf(item));
-                else
-                    currentNumber = currentNumber * 10 + Integer.parseInt(String.valueOf(item));
+
+            if (Character.isDigit(item)) {
+                currentNumber = currentNumber * 10 + Integer.parseInt(String.valueOf(item));
             }
+
             if (item == 'A' || item == 'B' || item == 'C' || item == 'D') {
                 // We check and see how many items of that type the user purchased
-                int numberOfItems = 1;
+                int numberOfItems;
+                if (currentNumber == 0)
+                    numberOfItems = 1;
+                else {
+                    numberOfItems = currentNumber;
+                    currentNumber = 0;
+                }
+
                 if (i > 0 && Character.isAlphabetic(skus.charAt(i - 1))) {
                     numberOfItems = skus.charAt(i - 1);
                 }
@@ -61,4 +67,5 @@ public class CheckoutSolution {
         return checkoutSum;
     }
 }
+
 
