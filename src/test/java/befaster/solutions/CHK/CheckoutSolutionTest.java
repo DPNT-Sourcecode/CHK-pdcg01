@@ -112,13 +112,14 @@ class CheckoutSolutionTest {
 
     @Test
     public void testCheckoutWith2F2E2BShouldReturn20() {
-        assertThat(chk.checkout("2F"), equalTo(130));
+        assertThat(chk.checkout("2F2E2B"), equalTo(130));
     }
 
     @Test
     public void testCheckoutWith3F2E2BShouldReturn20() {
-        assertThat(chk.checkout("3F"), equalTo(130));
+        assertThat(chk.checkout("3F2E2B"), equalTo(130));
     }
 
 
 }
+
