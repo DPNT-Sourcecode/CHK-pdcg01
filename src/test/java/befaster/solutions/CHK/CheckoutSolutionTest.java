@@ -39,4 +39,9 @@ class CheckoutSolutionTest {
     public void testCheckoutWithMultipleItemsAndSpacesInBetween() {
         assertThat(chk.checkout("2B  10A"), equalTo(485));
     }
+
+    @Test
+    public void testCheckoutWithSequencingCharacter() {
+        assertThat(chk.checkout("ABAABC"), equalTo(195));
+    }
 }
