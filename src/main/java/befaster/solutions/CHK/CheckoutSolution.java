@@ -26,6 +26,13 @@ public class CheckoutSolution {
 
         for (int i=0; i<skus.length(); i++) {
             char item = skus.charAt(i);
+            int currentNumber = 0;
+            if (Character.isAlphabetic(item)) {
+                if (currentNumber == 0)
+                    currentNumber  = Integer.parseInt(String.valueOf(item));
+                else
+                    currentNumber = currentNumber * 10 + Integer.parseInt(String.valueOf(item));
+            }
             if (item == 'A' || item == 'B' || item == 'C' || item == 'D') {
                 // We check and see how many items of that type the user purchased
                 int numberOfItems = 1;
@@ -54,3 +61,4 @@ public class CheckoutSolution {
         return checkoutSum;
     }
 }
+
