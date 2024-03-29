@@ -199,10 +199,7 @@ public class CheckoutSolution {
         }
         return itemCountMap;
     }
-
-    private Map<Character, Integer> applyGroupOfferDiscounts(Map<Character, Integer> itemCountMap) {
-
-    }
 }
+
 
 
