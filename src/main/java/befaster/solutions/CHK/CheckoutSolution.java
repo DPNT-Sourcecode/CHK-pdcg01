@@ -83,7 +83,7 @@ public class CheckoutSolution {
             int count = entry.getValue();
             int normalPrice = priceMap.get(item);
 
-            if (specialOfferCountMap.containsKey(item)) {
+            if (specialOfferCountMap.containsKey(item) && specialOfferPriceMap.containsKey(item)) {
                 List<Integer> itemSpecialOffers = specialOfferCountMap.get(item);
                 List<Integer> itemSpecialOffersPrices = specialOfferPriceMap.get(item);
                 for (int i=0; i<itemSpecialOffers.size(); i++) {
@@ -116,7 +116,13 @@ public class CheckoutSolution {
                 for (int i=0; i<itemSpecialOffers.size(); i++) {
                     if (itemSpecialOffers.get(i) <= countOfSpecialItems) {
                         int numberOfSpecialOffers = countOfSpecialItems / itemSpecialOffers.get(i);
-                        itemCountMap.put(entry.getValue().get(i), itemCountMap.get(specialOfferItem) - numberOfSpecialOffers);
+                        if (itemCountMap.get(entry.getValue().get(i)) != null) {
+                            if (itemCountMap.get(entry.getValue().get(i)) < numberOfSpecialOffers) {
+                                itemCountMap.put(entry.getValue().get(i), 0);
+                            } else {
+                                itemCountMap.put(entry.getValue().get(i), itemCountMap.get(specialOfferItem) - numberOfSpecialOffers);
+                            }
+                        }
                         countOfSpecialItems = countOfSpecialItems % itemSpecialOffers.get(i);
                     }
                 }
@@ -125,4 +131,5 @@ public class CheckoutSolution {
         return itemCountMap;
     }
 }
+
 
