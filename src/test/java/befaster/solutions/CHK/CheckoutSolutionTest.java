@@ -149,4 +149,19 @@ class CheckoutSolutionTest {
     public void testCheckoutWith8QShouldReturn220() {
         assertThat(chk.checkout("8Q"), equalTo(220));
     }
+
+    @Test
+    public void testCheckoutWith7R4QShouldReturn410() {
+        assertThat(chk.checkout("7R4Q"), equalTo(410));
+    }
+
+    @Test
+    public void testCheckoutWith8UShouldReturn240() {
+        assertThat(chk.checkout("8U"), equalTo(240));
+    }
+
+    @Test
+    public void testCheckoutWith11VShouldReturn480() {
+        assertThat(chk.checkout("11V"), equalTo(480));
+    }
 }
