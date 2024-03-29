@@ -61,6 +61,11 @@ class CheckoutSolutionTest {
     }
 
     @Test
+    public void testCheckoutWith2EBValueShouldReturn80() {
+        assertThat(chk.checkout("2EB"), equalTo(80));
+    }
+
+    @Test
     public void testCheckoutWith24AShouldReturn980() {
         assertThat(chk.checkout("24A"), equalTo(980));
     }

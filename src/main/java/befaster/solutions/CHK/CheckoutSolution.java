@@ -117,6 +117,7 @@ public class CheckoutSolution {
                     if (itemSpecialOffers.get(i) <= countOfSpecialItems) {
                         int numberOfSpecialOffers = countOfSpecialItems / itemSpecialOffers.get(i);
                         if (itemCountMap.get(entry.getValue().get(i)) != null) {
+                            System.out.println(entry.getKey());
                             if (itemCountMap.get(entry.getValue().get(i)) < numberOfSpecialOffers) {
                                 itemCountMap.put(entry.getValue().get(i), 0);
                             } else {
@@ -131,5 +132,6 @@ public class CheckoutSolution {
         return itemCountMap;
     }
 }
+
 
 
