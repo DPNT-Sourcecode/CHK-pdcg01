@@ -66,20 +66,21 @@ class CheckoutSolutionTest {
     }
 
     @Test
-    public void testCheckoutWith10AShouldReturn440() {
-        assertThat(chk.checkout("10A"), equalTo(440));
+    public void testCheckoutWith10AShouldReturn400() {
+        assertThat(chk.checkout("10A"), equalTo(400));
     }
 
     @Test
     public void testCheckoutWithMultipleItemsAndSpacesInBetween() {
-        assertThat(chk.checkout("2B  10A"), equalTo(485));
+        assertThat(chk.checkout("2B  10A"), equalTo(445));
     }
 
     @Test
     public void testCheckoutWithSequencingCharacter() {
-        assertThat(chk.checkout("ABAABCD"), equalTo(210));
+        assertThat(chk.checkout("ABAABCDE"), equalTo(250));
     }
 
 
 }
+
 
