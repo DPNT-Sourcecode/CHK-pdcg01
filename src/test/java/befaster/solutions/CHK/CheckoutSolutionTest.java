@@ -29,4 +29,9 @@ class CheckoutSolutionTest {
     public void testCheckoutWith2AShouldReturn100() {
         assertThat(chk.checkout("2A"), equalTo(100));
     }
+
+    @Test
+    public void testCheckoutWith32AShouldReturn100() {
+        assertThat(chk.checkout("32A"), equalTo(1600));
+    }
 }
