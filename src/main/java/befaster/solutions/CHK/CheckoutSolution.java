@@ -159,9 +159,7 @@ public class CheckoutSolution {
                 discountedItemsToBeRemoved = discountedItemsToBeRemoved - amount;
             }
         }
-        System.out.println(specialGroupOfferItemCount);
-        System.out.println(itemCountMap);
-        checkoutSum += (specialGroupOfferItemCount - discountedItemsToBeRemoved) / groupDiscountsMinPurchase.get(0) * specialOfferPriceMap.get('d').get(0);
+        checkoutSum += discountsToBeApplied * specialOfferPriceMap.get('d').get(0);
 
         for (Map.Entry<Character, Integer> entry: itemCountMap.entrySet()) {
             char item = entry.getKey();

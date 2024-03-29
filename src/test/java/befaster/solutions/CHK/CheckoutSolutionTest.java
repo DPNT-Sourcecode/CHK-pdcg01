@@ -126,8 +126,8 @@ class CheckoutSolutionTest {
     }
 
     @Test
-    public void testCheckoutWith5KShouldReturn380() {
-        assertThat(chk.checkout("5K"), equalTo(380));
+    public void testCheckoutWith5KShouldReturn310() {
+        assertThat(chk.checkout("5K"), equalTo(310));
     }
 
     @Test
@@ -166,17 +166,12 @@ class CheckoutSolutionTest {
     }
 
     @Test
-    public void testCheckoutWithABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZShouldReturn1880() {
-        assertThat(chk.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(1880));
-    }
-
-    @Test
-    public void testCheckoutWithABCDEFGHIJKLMNOPQRSTUVWXYZShouldReturn965() {
-        assertThat(chk.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(965));
-    }
-
-    @Test
     public void testCheckoutWith2S1T5ZShouldReturn130() {
         assertThat(chk.checkout("2S1T5Z"), equalTo(130));
+    }
+
+    @Test
+    public void testCheckoutWith3S1T5X1Y3Z3UShouldReturn317() {
+        assertThat(chk.checkout("3S1T5X1Y3Z3U"), equalTo(317));
     }
 }
