@@ -71,6 +71,16 @@ class CheckoutSolutionTest {
     }
 
     @Test
+    public void testCheckoutWith8A2E3BValueShouldReturn455() {
+        assertThat(chk.checkout("8A2E3B"), equalTo(455));
+    }
+
+    @Test
+    public void testCheckoutWith9A5B3C1D3EValueShouldReturn665() {
+        assertThat(chk.checkout("9A5B3C1D3E"), equalTo(665));
+    }
+
+    @Test
     public void testCheckoutWith24AShouldReturn980() {
         assertThat(chk.checkout("24A"), equalTo(980));
     }
@@ -92,4 +102,5 @@ class CheckoutSolutionTest {
 
 
 }
+
 
