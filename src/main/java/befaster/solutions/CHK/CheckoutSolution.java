@@ -18,9 +18,10 @@ public class CheckoutSolution {
     }
     public Integer checkout(String skus) {
         // Firstly, we check if the string is empty so that means the checkout basket is empty
-        Map<Character, Integer> itemCount = new HashMap<>();
-
         if (skus.isEmpty()) return 0;
+
+        // Create an empty map to keep track of how many items of each type we have
+        Map<Character, Integer> itemCount = new HashMap<>();
         int currentNumber = 0;
 
         for (int i=0; i<skus.length(); i++) {
@@ -31,7 +32,7 @@ public class CheckoutSolution {
                 currentNumber = currentNumber * 10 + Integer.parseInt(String.valueOf(item));
             }
 
-            if (item == 'A' || item == 'B' || item == 'C' || item == 'D') {
+            if (Character.isAlphabetic(item)) {
                 // We check and see how many items of that type the user purchased
                 int numberOfItems;
                 if (currentNumber == 0)
@@ -41,22 +42,7 @@ public class CheckoutSolution {
                     currentNumber = 0;
                 }
 
-                switch (item) {
-                    case 'A':
-                        itemCount.put('A', itemCount.get('A') + numberOfItems);
-                        break;
-                    case 'B':
-                        itemCount.put('B', itemCount.get('B') + numberOfItems);
-                        break;
-                    case 'C':
-                        itemCount.put('C', itemCount.get('C') + numberOfItems);
-                        break;
-                    case 'D':
-                        itemCount.put('D', itemCount.get('D') + numberOfItems);
-                        break;
-                    default: return -1;
-            }
-
+                itemCount.put(item, itemCount.get(item) != null ?  itemCount.get(item) + numberOfItems : numberOfItems);
             }
         }
         return calculateTotal(itemCount);
@@ -76,6 +62,7 @@ public class CheckoutSolution {
         return checkoutSum;
     }
 }
+
 
 
 
