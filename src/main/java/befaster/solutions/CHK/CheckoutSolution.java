@@ -49,6 +49,7 @@ public class CheckoutSolution {
         specialOfferPriceMap.put('P', new ArrayList<>(List.of(200)));
         specialOfferPriceMap.put('Q', new ArrayList<>(List.of(80)));
         specialOfferPriceMap.put('V', new ArrayList<>(List.of(130, 90)));
+        specialOfferPriceMap.put('d', new ArrayList<>(List.of(45)));
 
         specialOfferCharacterMap.put('E', new ArrayList<>(List.of('B')));
         specialOfferCharacterMap.put('F', new ArrayList<>(List.of('F')));
@@ -131,6 +132,7 @@ public class CheckoutSolution {
         }
         list.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
 
+        // We now calculate how many items from the special group discount are there in the basket
         int specialGroupOfferItemCount = 0;
         for (Map.Entry<List<Character>, Integer> entry: specialGroupOfferMap.entrySet()) {
             for (int i=0; i<entry.getKey().size(); i++) {
@@ -141,17 +143,22 @@ public class CheckoutSolution {
             }
         }
 
+        // We now remove some items from the discount group and add the group price to the total
+        int appliedDiscounts = specialGroupOfferItemCount;
         for (Map.Entry<Character, Integer> entry: list) {
-            if (itemCountMap.containsKey(entry.getKey()) && specialGroupOfferItemCount > 0) {
+            if (itemCountMap.containsKey(entry.getKey()) && appliedDiscounts > 0) {
                 int amount = itemCountMap.get(entry.getKey());
-                if (specialGroupOfferItemCount >= amount) {
+                if (appliedDiscounts >= amount) {
                     itemCountMap.put(entry.getKey(), 0);
                 } else {
-                    itemCountMap.put(entry.getKey(), amount - specialGroupOfferItemCount);
+                    itemCountMap.put(entry.getKey(), amount - appliedDiscounts);
                 }
-                specialGroupOfferItemCount = specialGroupOfferItemCount - amount;
+                appliedDiscounts = appliedDiscounts - amount;
             }
         }
+        System.out.println(specialGroupOfferItemCount);
+        System.out.println(itemCountMap);
+//        checkoutSum += (specialGroupOfferItemCount - appliedDiscounts) / specialGroupOfferMap.get(0);
 
         for (Map.Entry<Character, Integer> entry: itemCountMap.entrySet()) {
             char item = entry.getKey();
@@ -212,3 +219,4 @@ public class CheckoutSolution {
         return itemCountMap;
     }
 }
+
