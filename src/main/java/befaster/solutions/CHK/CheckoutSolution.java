@@ -80,7 +80,7 @@ public class CheckoutSolution {
                 List<Integer> itemSpecialOffers = specialOfferCountMap.get(item);
                 List<Integer> itemSpecialOffersPrices = specialOfferPriceMap.get(item);
                 for (int i=0; i<itemSpecialOffers.size(); i++) {
-                    if (itemSpecialOffers.get(i) >= count) {
+                    if (itemSpecialOffers.get(i) <= count) {
                         int numberOfSpecialOffers = count / itemSpecialOffers.get(i);
                         checkoutSum += numberOfSpecialOffers * itemSpecialOffersPrices.get(i);
                         count = count % itemSpecialOffers.get(i);
@@ -97,4 +97,5 @@ public class CheckoutSolution {
         return checkoutSum;
     }
 }
+
 
