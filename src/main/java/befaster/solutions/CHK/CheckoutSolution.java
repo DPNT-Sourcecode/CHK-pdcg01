@@ -2,32 +2,31 @@ package befaster.solutions.CHK;
 
 import befaster.runner.SolutionNotImplementedException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CheckoutSolution {
-    private enum ItemValue {
-        A(50),
-        B(30),
-        C(20),
-        D(15);
 
-        private final int value;
+    private static final Map<Character, Integer> priceMap = new HashMap<>();
 
-        ItemValue(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
+    static {
+        // This is where we put all the prices in the map
+        priceMap.put('A', 50);
+        priceMap.put('B', 30);
+        priceMap.put('C', 20);
+        priceMap.put('D', 15);
     }
     public Integer checkout(String skus) {
         // Firstly, we check if the string is empty so that means the checkout basket is empty
+        Map<Character, Integer> itemCount = new HashMap<>();
+
         if (skus.isEmpty()) return 0;
-        int checkoutSum = 0;
         int currentNumber = 0;
 
         for (int i=0; i<skus.length(); i++) {
             char item = skus.charAt(i);
 
+            // We keep track of the numbers passed in
             if (Character.isDigit(item)) {
                 currentNumber = currentNumber * 10 + Integer.parseInt(String.valueOf(item));
             }
@@ -42,30 +41,41 @@ public class CheckoutSolution {
                     currentNumber = 0;
                 }
 
-                if (i > 0 && Character.isAlphabetic(skus.charAt(i - 1))) {
-                    numberOfItems = skus.charAt(i - 1);
-                }
-
                 switch (item) {
                     case 'A':
-                        checkoutSum += ItemValue.A.value * numberOfItems;
+                        itemCount.put('A', itemCount.get('A') + numberOfItems);
                         break;
                     case 'B':
-                        checkoutSum += ItemValue.B.value * numberOfItems;
+                        itemCount.put('B', itemCount.get('B') + numberOfItems);
                         break;
                     case 'C':
-                        checkoutSum += ItemValue.C.value * numberOfItems;
+                        itemCount.put('C', itemCount.get('C') + numberOfItems);
                         break;
                     case 'D':
-                        checkoutSum += ItemValue.D.value * numberOfItems;
+                        itemCount.put('D', itemCount.get('D') + numberOfItems);
                         break;
                     default: return -1;
             }
 
             }
         }
+        return calculateTotal(itemCount);
+    }
+
+    private int calculateTotal(Map<Character, Integer> itemCountMap) {
+        int checkoutSum = 0;
+
+        for (Map.Entry<Character, Integer> entry: itemCountMap.entrySet()) {
+            char item = entry.getKey();
+            int count = entry.getValue();
+            int price = priceMap.get(item);
+
+            checkoutSum += price * count;
+        }
+
         return checkoutSum;
     }
 }
+
 
 
