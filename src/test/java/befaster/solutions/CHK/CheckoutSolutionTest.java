@@ -130,5 +130,23 @@ class CheckoutSolutionTest {
         assertThat(chk.checkout("5K"), equalTo(380));
     }
 
+    @Test
+    public void testCheckoutWith3NMShouldReturn120() {
+        assertThat(chk.checkout("3NM"), equalTo(120));
+    }
 
+    @Test
+    public void testCheckoutWith5N2MShouldReturn215() {
+        assertThat(chk.checkout("5N2M"), equalTo(215));
+    }
+
+    @Test
+    public void testCheckoutWith12PShouldReturn500() {
+        assertThat(chk.checkout("12P"), equalTo(500));
+    }
+
+    @Test
+    public void testCheckoutWith8QShouldReturn220() {
+        assertThat(chk.checkout("8Q"), equalTo(220));
+    }
 }
