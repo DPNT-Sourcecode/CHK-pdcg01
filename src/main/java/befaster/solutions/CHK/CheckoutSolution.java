@@ -8,6 +8,8 @@ import java.util.Map;
 public class CheckoutSolution {
 
     private static final Map<Character, Integer> priceMap = new HashMap<>();
+    private static final Map<Character, Integer> specialOfferCountMap = new HashMap<>();
+    private static final Map<Character, Integer> specialOfferPriceMap = new HashMap<>();
 
     static {
         // This is where we put all the prices in the map
@@ -15,6 +17,13 @@ public class CheckoutSolution {
         priceMap.put('B', 30);
         priceMap.put('C', 20);
         priceMap.put('D', 15);
+
+        // This is where we put the special promotions in two separate maps
+        specialOfferPriceMap.put('A', 130);
+        specialOfferPriceMap.put('B', 45);
+
+        specialOfferCountMap.put('A', 3);
+        specialOfferCountMap.put('B', 2);
     }
     public Integer checkout(String skus) {
         // Firstly, we check if the string is empty so that means the checkout basket is empty
@@ -59,7 +68,13 @@ public class CheckoutSolution {
             int count = entry.getValue();
             int price = priceMap.get(item);
 
-            checkoutSum += price * count;
+            if (specialOfferPriceMap.containsKey(item)) {
+                int numberOfSpecialOffers = count / specialOfferCountMap.get(item);
+                int remainingItems = count % specialOfferCountMap.get(item);
+                checkoutSum += numberOfSpecialOffers * specialOfferPriceMap.get(item) + remainingItems * price;
+            } else {
+                checkoutSum += price * count;
+            }
         }
 
         return checkoutSum;

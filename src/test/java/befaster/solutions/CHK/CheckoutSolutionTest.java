@@ -31,12 +31,12 @@ class CheckoutSolutionTest {
     }
 
     @Test
-    public void testCheckoutWith32AShouldReturn100() {
-        assertThat(chk.checkout("32A"), equalTo(1600));
+    public void testCheckoutWith10AShouldReturn440() {
+        assertThat(chk.checkout("10A"), equalTo(440));
     }
 
     @Test
-    public void testCheckoutWithMultipleItemsAndSpacesInbetween() {
-        assertThat(chk.checkout("2B  32A"), equalTo(1660));
+    public void testCheckoutWithMultipleItemsAndSpacesInBetween() {
+        assertThat(chk.checkout("2B  10A"), equalTo(485));
     }
 }
