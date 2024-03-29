@@ -26,6 +26,31 @@ class CheckoutSolutionTest {
     }
 
     @Test
+    public void testCheckoutWithJustNumbers() {
+        assertThat(chk.checkout("330"), equalTo(-1));
+    }
+
+    @Test
+    public void testCheckoutWithAValueShouldReturn50() {
+        assertThat(chk.checkout("A"), equalTo(50));
+    }
+
+    @Test
+    public void testCheckoutWithBValueShouldReturn30() {
+        assertThat(chk.checkout("B"), equalTo(30));
+    }
+
+    @Test
+    public void testCheckoutWithCValueShouldReturn20() {
+        assertThat(chk.checkout("C"), equalTo(20));
+    }
+
+    @Test
+    public void testCheckoutWithDValueShouldReturn15() {
+        assertThat(chk.checkout("D"), equalTo(15));
+    }
+
+    @Test
     public void testCheckoutWith2AShouldReturn100() {
         assertThat(chk.checkout("2A"), equalTo(100));
     }
@@ -42,6 +67,8 @@ class CheckoutSolutionTest {
 
     @Test
     public void testCheckoutWithSequencingCharacter() {
-        assertThat(chk.checkout("ABAABC"), equalTo(195));
+        assertThat(chk.checkout("ABAABCD"), equalTo(210));
     }
+
+
 }
