@@ -121,7 +121,9 @@ public class CheckoutSolution {
         // Apply group discounts
         // Firstly, I will create a map which has all the group discount items in descending order
         List<Map.Entry<Character, Integer>> list = new ArrayList<>();
+        List<Integer> groupDiscountsMinPurchase = new ArrayList<>();
         for (Map.Entry<List<Character>, Integer> entry: specialGroupOfferMap.entrySet()) {
+            groupDiscountsMinPurchase.add(entry.getValue());
             for (int i=0; i<entry.getKey().size(); i++) {
                 char charToCheck = entry.getKey().get(i);
                 for (Map.Entry<Character, Integer> priceMapEntry: priceMap.entrySet()) {
@@ -146,7 +148,7 @@ public class CheckoutSolution {
         // We now remove some items from the discount group and add the group price to the total
         int appliedDiscounts = specialGroupOfferItemCount;
         for (Map.Entry<Character, Integer> entry: list) {
-            if (itemCountMap.containsKey(entry.getKey()) && appliedDiscounts > 0) {
+            if (itemCountMap.containsKey(entry.getKey()) && appliedDiscounts / groupDiscountsMinPurchase.get(0) > 0) {
                 int amount = itemCountMap.get(entry.getKey());
                 if (appliedDiscounts >= amount) {
                     itemCountMap.put(entry.getKey(), 0);
@@ -158,7 +160,7 @@ public class CheckoutSolution {
         }
         System.out.println(specialGroupOfferItemCount);
         System.out.println(itemCountMap);
-//        checkoutSum += (specialGroupOfferItemCount - appliedDiscounts) / specialGroupOfferMap.get(0);
+        checkoutSum += (specialGroupOfferItemCount - appliedDiscounts) / groupDiscountsMinPurchase.get(0) * priceMap.get('d');
 
         for (Map.Entry<Character, Integer> entry: itemCountMap.entrySet()) {
             char item = entry.getKey();
@@ -219,4 +221,5 @@ public class CheckoutSolution {
         return itemCountMap;
     }
 }
+
 
