@@ -25,6 +25,7 @@ public class CheckoutSolution {
         priceMap.put('G', 20);
         priceMap.put('H', 10);
         priceMap.put('I', 35);
+        priceMap.put('J', 60);
         priceMap.put('K', 80);
         priceMap.put('L', 90);
         priceMap.put('M', 15);

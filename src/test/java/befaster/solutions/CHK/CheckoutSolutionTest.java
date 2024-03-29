@@ -164,4 +164,14 @@ class CheckoutSolutionTest {
     public void testCheckoutWith11VShouldReturn480() {
         assertThat(chk.checkout("11V"), equalTo(480));
     }
+
+    @Test
+    public void testCheckoutWithABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZShouldReturn1880() {
+        assertThat(chk.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(1880));
+    }
+
+    @Test
+    public void testCheckoutWithABCDEFGHIJKLMNOPQRSTUVWXYZShouldReturn965() {
+        assertThat(chk.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(965));
+    }
 }
