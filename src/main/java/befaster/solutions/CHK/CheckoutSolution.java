@@ -146,21 +146,22 @@ public class CheckoutSolution {
         }
 
         // We now remove some items from the discount group and add the group price to the total
-        int appliedDiscounts = specialGroupOfferItemCount;
+        int discountsToBeApplied = specialGroupOfferItemCount / groupDiscountsMinPurchase.get(0);
+        int discountedItemsToBeRemoved = discountsToBeApplied * groupDiscountsMinPurchase.get(0);
         for (Map.Entry<Character, Integer> entry: list) {
-            if (itemCountMap.containsKey(entry.getKey()) && appliedDiscounts / groupDiscountsMinPurchase.get(0) > 0) {
+            if (itemCountMap.containsKey(entry.getKey()) && discountedItemsToBeRemoved > 0) {
                 int amount = itemCountMap.get(entry.getKey());
-                if (appliedDiscounts >= amount) {
+                if (discountedItemsToBeRemoved >= amount) {
                     itemCountMap.put(entry.getKey(), 0);
                 } else {
-                    itemCountMap.put(entry.getKey(), amount - appliedDiscounts);
+                    itemCountMap.put(entry.getKey(), amount - discountedItemsToBeRemoved);
                 }
-                appliedDiscounts = appliedDiscounts - amount;
+                discountedItemsToBeRemoved = discountedItemsToBeRemoved - amount;
             }
         }
         System.out.println(specialGroupOfferItemCount);
         System.out.println(itemCountMap);
-        checkoutSum += (specialGroupOfferItemCount - appliedDiscounts) / groupDiscountsMinPurchase.get(0) * specialOfferPriceMap.get('d').get(0);
+        checkoutSum += (specialGroupOfferItemCount - discountedItemsToBeRemoved) / groupDiscountsMinPurchase.get(0) * specialOfferPriceMap.get('d').get(0);
 
         for (Map.Entry<Character, Integer> entry: itemCountMap.entrySet()) {
             char item = entry.getKey();
@@ -221,6 +222,7 @@ public class CheckoutSolution {
         return itemCountMap;
     }
 }
+
 
 
 
