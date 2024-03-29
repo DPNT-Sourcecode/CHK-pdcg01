@@ -34,4 +34,9 @@ class CheckoutSolutionTest {
     public void testCheckoutWith32AShouldReturn100() {
         assertThat(chk.checkout("32A"), equalTo(1600));
     }
+
+    @Test
+    public void testCheckoutWithMultipleItemsAndSpacesInbetween() {
+        assertThat(chk.checkout("2B  32A"), equalTo(1660));
+    }
 }
