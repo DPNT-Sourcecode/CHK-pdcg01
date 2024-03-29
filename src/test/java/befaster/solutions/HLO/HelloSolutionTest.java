@@ -17,7 +17,7 @@ class HelloSolutionTest {
     }
 
     @Test
-    public void compute_hlo_without_friend_name() {
-        assertThat(hlo.hello(""), equalTo("Hello, World!"));
+    public void compute_hlo_with_friend_name() {
+        assertThat(hlo.hello("John"), equalTo("Hello, John!"));
     }
 }
