@@ -24,4 +24,9 @@ class CheckoutSolutionTest {
     public void testCheckoutWithEmptyString() {
         assertThat(chk.checkout(""), equalTo(0));
     }
+
+    @Test
+    public void testCheckoutWith2AShouldReturn100() {
+        assertThat(chk.checkout("2A"), equalTo(100));
+    }
 }
