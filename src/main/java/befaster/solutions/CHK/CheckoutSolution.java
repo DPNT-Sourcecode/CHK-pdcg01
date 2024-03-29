@@ -120,17 +120,15 @@ public class CheckoutSolution {
                     if (itemSpecialOffers.get(i) <= countOfSpecialItems) {
                         int numberOfSpecialOffers = countOfSpecialItems / itemSpecialOffers.get(i);
                         if (itemCountMap.get(entry.getValue().get(i)) != null) {
-                            // This is a formula for the amount of paid items
                             if (entry.getValue().get(i) == specialOfferItem) {
+                                // This is a formula for the amount of paid items
                                 int paidItems = (itemCountMap.get(entry.getValue().get(i)) / (itemSpecialOffers.get(i) + 1)) * itemSpecialOffers.get(i) + itemCountMap.get(entry.getValue().get(i)) % (itemSpecialOffers.get(i) + 1);
                                 itemCountMap.put(entry.getValue().get(i), paidItems);
                             } else {
-                                if (specialOfferItem != entry.getValue().get(i) && numberOfSpecialOffers * itemSpecialOffers.get(i) < itemCountMap.get(entry.getValue().get(i))) {
-                                    if (itemCountMap.get(entry.getValue().get(i)) <= numberOfSpecialOffers) {
-                                        itemCountMap.put(entry.getValue().get(i), 0);
-                                    } else {
-                                        itemCountMap.put(entry.getValue().get(i), itemCountMap.get(entry.getValue().get(i)) - numberOfSpecialOffers);
-                                    }
+                                if (itemCountMap.get(entry.getValue().get(i)) <= numberOfSpecialOffers) {
+                                    itemCountMap.put(entry.getValue().get(i), 0);
+                                } else {
+                                    itemCountMap.put(entry.getValue().get(i), itemCountMap.get(entry.getValue().get(i)) - numberOfSpecialOffers);
                                 }
                             }
                         }
