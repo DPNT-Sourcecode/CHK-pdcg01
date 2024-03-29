@@ -57,7 +57,12 @@ public class CheckoutSolution {
                 itemCount.put(item, itemCount.get(item) != null ?  itemCount.get(item) + numberOfItems : numberOfItems);
             }
         }
-        return calculateTotal(itemCount);
+        int totalSum = calculateTotal(itemCount);
+
+        // Check for only numbers in string
+        if (totalSum == 0) return -1;
+
+        return totalSum;
     }
 
     private int calculateTotal(Map<Character, Integer> itemCountMap) {
@@ -80,3 +85,4 @@ public class CheckoutSolution {
         return checkoutSum;
     }
 }
+
