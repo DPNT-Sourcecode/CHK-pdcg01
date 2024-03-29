@@ -212,6 +212,3 @@ public class CheckoutSolution {
         return itemCountMap;
     }
 }
-
-
-
