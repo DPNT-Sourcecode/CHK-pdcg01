@@ -12,6 +12,7 @@ public class CheckoutSolution {
     private static final Map<Character, Integer> priceMap = new HashMap<>();
     private static final Map<Character, List<Integer>> specialOfferCountMap = new HashMap<>();
     private static final Map<Character, List<Integer>> specialOfferPriceMap = new HashMap<>();
+    private static final Map<Character, List<Character>> specialOfferCharacterMap = new HashMap<>();
 
     static {
         // This is where we put all the prices in the map
@@ -25,8 +26,11 @@ public class CheckoutSolution {
         specialOfferPriceMap.put('A', new ArrayList<>(List.of(200, 130)));
         specialOfferPriceMap.put('B', new ArrayList<>(List.of(45)));
 
+        specialOfferCharacterMap.put('E', new ArrayList<>(List.of('B')));
+
         specialOfferCountMap.put('A', new ArrayList<>(List.of(5, 3)));
         specialOfferCountMap.put('B', new ArrayList<>(List.of(2)));
+        specialOfferCountMap.put('E', new ArrayList<>(List.of(2)));
     }
     public Integer checkout(String skus) {
         // Firstly, we check if the string is empty so that means the checkout basket is empty
@@ -71,12 +75,15 @@ public class CheckoutSolution {
     private int calculateTotal(Map<Character, Integer> itemCountMap) {
         int checkoutSum = 0;
 
+        // We should first check for free items and remove them
+        itemCountMap = deductFreeItems(itemCountMap);
+
         for (Map.Entry<Character, Integer> entry: itemCountMap.entrySet()) {
             char item = entry.getKey();
             int count = entry.getValue();
             int normalPrice = priceMap.get(item);
 
-            if (specialOfferPriceMap.containsKey(item)) {
+            if (specialOfferCountMap.containsKey(item)) {
                 List<Integer> itemSpecialOffers = specialOfferCountMap.get(item);
                 List<Integer> itemSpecialOffersPrices = specialOfferPriceMap.get(item);
                 for (int i=0; i<itemSpecialOffers.size(); i++) {
@@ -96,4 +103,26 @@ public class CheckoutSolution {
 
         return checkoutSum;
     }
+
+    private Map<Character, Integer> deductFreeItems(Map<Character, Integer> itemCountMap) {
+        for (Map.Entry<Character, List<Character>> entry: specialOfferCharacterMap.entrySet()) {
+            if (itemCountMap.containsKey(entry.getKey())) {
+                char specialOfferItem = entry.getKey();
+                List<Integer> itemSpecialOffers = specialOfferCountMap.get(specialOfferItem);
+                List<Character> itemSpecialOffersCharacters = specialOfferCharacterMap.get(specialOfferItem);
+
+                int countOfSpecialItems = itemCountMap.get(specialOfferItem);
+
+                for (int i=0; i<itemSpecialOffers.size(); i++) {
+                    if (itemSpecialOffers.get(i) <= countOfSpecialItems) {
+                        int numberOfSpecialOffers = countOfSpecialItems / itemSpecialOffers.get(i);
+                        itemCountMap.put(entry.getValue().get(i), itemCountMap.get(specialOfferItem) - numberOfSpecialOffers);
+                        countOfSpecialItems = countOfSpecialItems % itemSpecialOffers.get(i);
+                    }
+                }
+            }
+        }
+        return itemCountMap;
+    }
 }
+
