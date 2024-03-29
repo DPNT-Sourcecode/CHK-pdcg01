@@ -119,10 +119,18 @@ public class CheckoutSolution {
 
         // Apply group discounts
         // Firstly, I will create a map which has all the group discount items in descending order
-        LinkedHashMap<Character, Integer> sortedGroupOfferMap = new LinkedHashMap<>();
+        List<Map.Entry<Character, Integer>> list = new ArrayList<>();
         for (Map.Entry<List<Character>, Integer> entry: specialGroupOfferMap.entrySet()) {
-
+            for (int i=0; i<entry.getKey().size(); i++) {
+                char charToCheck = entry.getKey().get(i);
+                for (Map.Entry<Character, Integer> priceMapEntry: priceMap.entrySet()) {
+                    if (priceMapEntry.getKey() == charToCheck)
+                        list.add(priceMapEntry);
+                }
+            }
         }
+        list.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
+        System.out.println(list);
         int specialGroupOfferItemCount = 0;
         for (Map.Entry<List<Character>, Integer> entry: specialGroupOfferMap.entrySet()) {
             for (int i=0; i<entry.getKey().size(); i++) {
@@ -196,4 +204,5 @@ public class CheckoutSolution {
 
     }
 }
+
 
